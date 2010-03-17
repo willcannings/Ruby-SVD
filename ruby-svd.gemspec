@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Will"]
+  s.authors = ["Will Cannings"]
   s.date = %q{2010-03-18}
   s.description = %q{Singular Value Decomposition with no dependency on GSL or LAPACK}
   s.email = %q{me@willcannings.com}

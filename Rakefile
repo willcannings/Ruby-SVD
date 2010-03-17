@@ -9,7 +9,7 @@ begin
     gem.description = "Singular Value Decomposition with no dependency on GSL or LAPACK"
     gem.email = "me@willcannings.com"
     gem.homepage = "http://github.com/willcannings/ruby-svd"
-    gem.authors = ["Will"]
+    gem.authors = ["Will Cannings"]
     gem.files = ["lib/*", "ext/*"]
     gem.require_paths = ['lib', 'ext']
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
