@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <ruby/ruby.h>
+#include <ruby.h>
 #include "svd.h"
 
 VALUE decompose(VALUE module, VALUE matrix_ruby, VALUE m_ruby, VALUE n_ruby) {
