@@ -16,7 +16,7 @@ class SVDMatrix < Matrix
   end
   
   # Set the value of a row to an array
-  def []=(i, row)
+  def set_row(i, row)
     @rows[i] = row
   end
   
@@ -41,29 +41,30 @@ class SVDMatrix < Matrix
     
     # recompose U matrix
     u = SVDMatrix.new(row_size, column_size)
-    row_size.times {|i| u[i] = u_array.slice!(0,column_size)}
+    row_size.times {|i| u.set_row(i, u_array.slice!(0,column_size))}
     
     # recompose V matric
     v = SVDMatrix.new(column_size, column_size)
-    column_size.times {|i| v[i] = v_array.slice!(0,column_size)}
+    column_size.times {|i| v.set_row(i, v_array.slice!(0,column_size))}
     v = v.transpose
     
     # diagonalise W array as a matrix
     if reduce_dimensions_to
-      (reduce_dimensions_to...w.size).each {|index| w[index] = 0.0}
-    else
-      w = Matrix.diagonal(*w_array)
+      (reduce_dimensions_to...w_array.size).each {|index| w_array[index] = 0.0}
     end
+    w = Matrix.diagonal(*w_array)
     
-    u, w, v
+    [u, w, v]
   end
   
   # Reduce the number of dimensions of the data to dimensions.
   # Returns a back a recombined matrix (conceptually the original
   # matrix dimensionally reduced). For example Latent Semantic
   # Analysis uses 2 dimensions, and commonly tf-idf cell data.
+  # The recombined matrix, and the 3 decomposed matrices are
+  # returned.
   def reduce_dimensions(dimensions)
     u, w, v = self.decompose(dimensions)
-    (u * w * v)
+    [(u * w * v), u, w, v]
   end
 end
