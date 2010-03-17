@@ -1,0 +1,6 @@
+Singular Value Decomposition for Ruby with no dependency on GSL or LAPACK. Uses a C extension
+to the Numerical Recipies C implementation of an SVD matrix decomposer. Also includes an
+extension to the native Ruby Matrix class with a simple LSA method (decomposes the matrix,
+transposes matrix V, diagonalises the S array into a matrix, then removes all but the two
+leading terms in S to compress the original matrix to two dimensions).
+
