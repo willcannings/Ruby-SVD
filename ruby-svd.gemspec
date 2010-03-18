@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
      "ext/nrutil.h",
      "ext/svd.c",
      "ext/svd.h",
+     "lib/lsa.rb",
      "lib/ruby-svd.rb",
      "lib/svd_matrix.rb"
   ]
