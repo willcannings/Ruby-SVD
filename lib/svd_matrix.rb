@@ -40,17 +40,16 @@ class SVDMatrix < Matrix
     u_array, w_array, v_array = SVD.decompose(input_array, row_size, column_size)
     
     # recompose U matrix
-    u = SVDMatrix.new(row_size, column_size)
-    row_size.times {|i| u.set_row(i, u_array.slice!(0,column_size))}
+    u = SVDMatrix.new(row_size, reduce_dimensions_to || column_size)
+    row_size.times {|i| u.set_row(i, u_array.slice!(0, reduce_dimensions_to || column_size))}
     
     # recompose V matric
-    v = SVDMatrix.new(column_size, column_size)
-    column_size.times {|i| v.set_row(i, v_array.slice!(0,column_size))}
-    v = v.transpose
+    v = SVDMatrix.new(column_size, reduce_dimensions_to || column_size)
+    column_size.times {|i| v.set_row(i, v_array.slice!(0, reduce_dimensions_to || column_size))}
     
     # diagonalise W array as a matrix
     if reduce_dimensions_to
-      (reduce_dimensions_to...w_array.size).each {|index| w_array[index] = 0.0}
+      w_array = w_array[0...reduce_dimensions_to]
     end
     w = Matrix.diagonal(*w_array)
     
@@ -63,8 +62,8 @@ class SVDMatrix < Matrix
   # Analysis uses 2 dimensions, and commonly tf-idf cell data.
   # The recombined matrix, and the 3 decomposed matrices are
   # returned.
-  def reduce_dimensions(dimensions)
+  def reduce_dimensions(dimensions = 2)
     u, w, v = self.decompose(dimensions)
-    [(u * w * v), u, w, v]
+    [(u * w * v.transpose), u, w, v]
   end
 end
