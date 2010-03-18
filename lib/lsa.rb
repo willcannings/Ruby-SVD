@@ -17,7 +17,6 @@ class LSA
     comp_matrix = (values.size == @u.row_size ? @v : @u)
     
     position = vector * mult_matrix * @s.inverse
-    puts position
     x = position[0,0]
     y = position[0,1]
     results = []
