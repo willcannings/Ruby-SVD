@@ -11,16 +11,19 @@ class LSA
   # and all the clusters (columns) used in the original matrix.
   # Returns a sorted list of indexes and distances,
   def classify_vector(values)
-    raise "Unsupported vector length" unless values.size == @u.row_size
+    raise "Unsupported vector length" unless values.size == @u.row_size || values.size == @v.row_size
     vector = Matrix.row_vector(values)
-    position = vector * @u * @s.inverse
+    mult_matrix = (values.size == @u.row_size ? @u : @v)
+    comp_matrix = (values.size == @u.row_size ? @v : @u)
+    
+    position = vector * mult_matrix * @s.inverse
     puts position
     x = position[0,0]
     y = position[0,1]
     results = []
     
-    @v.row_size.times do |index|
-      results << [index, cosine_similarity(x, y, @v[index, 0], @v[index, 1])]
+    comp_matrix.row_size.times do |index|
+      results << [index, cosine_similarity(x, y, comp_matrix[index, 0], comp_matrix[index, 1])]
     end
     
     results.sort {|a, b| b[1] <=> a[1]}
