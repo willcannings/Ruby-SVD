@@ -18,13 +18,13 @@ VALUE decompose(VALUE module, VALUE matrix_ruby, VALUE m_ruby, VALUE n_ruby) {
 	VALUE w_output = rb_ary_new();
 	VALUE output = rb_ary_new();
 	
-	// precondition
+	/* precondition */
 	if((m*n) != RARRAY_LEN(matrix_ruby)) {
 		rb_raise(rb_eRangeError, "Size of the array is not equal to m * n");
 		return;
 	}
 	
-	// convert to u matrix
+	/* convert to u matrix */
 	for(i = 1; i <= m; i++) {
 		for(j = 1; j <= n; j++) {
 			offset = ((i-1)*n) + (j-1);

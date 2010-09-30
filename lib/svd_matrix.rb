@@ -43,7 +43,7 @@ class SVDMatrix < Matrix
     u = SVDMatrix.new(row_size, reduce_dimensions_to || column_size)
     row_size.times {|i| u.set_row(i, u_array.slice!(0, column_size)[0...reduce_dimensions_to])}
     
-    # recompose V matric
+    # recompose V matrix
     v = SVDMatrix.new(column_size, reduce_dimensions_to || column_size)
     column_size.times {|i| v.set_row(i, v_array.slice!(0, column_size)[0...reduce_dimensions_to])}
     
