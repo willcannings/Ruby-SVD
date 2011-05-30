@@ -7,6 +7,10 @@ class LSA
     @u, @s, @v = matrix.decompose(2)
   end
   
+  def inspect
+    "U:\n#{@u.inspect}\n\nS:\n#{@s.inspect}\n\nV:\n#{@v.inspect}"
+  end
+  
   # Return a distance (cosine similarity) between a new vector,
   # and all the clusters (columns) used in the original matrix.
   # Returns a sorted list of indexes and distances,

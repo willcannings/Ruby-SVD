@@ -7,6 +7,7 @@ class SVDMatrix < Matrix
   # Create a new SVD Matrix with m rows, n columns
   def initialize(m, n)
     @rows = Array.new(m)
+    @column_size = n
     m.times {|i| @rows[i] = Array.new(n)}
   end
   
@@ -22,7 +23,7 @@ class SVDMatrix < Matrix
   
   # Nicely formatted inspect string for the matrix
   def inspect
-    @rows.collect {|row| "#{row.inspect}\n"}
+    @rows.collect {|row| row.inspect}.join("\n")
   end
 
   # Perform SVD and decompose the matrix into three matrices:
