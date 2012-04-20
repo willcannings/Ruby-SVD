@@ -21,7 +21,7 @@ VALUE decompose(VALUE module, VALUE matrix_ruby, VALUE m_ruby, VALUE n_ruby) {
 	/* precondition */
 	if((m*n) != RARRAY_LEN(matrix_ruby)) {
 		rb_raise(rb_eRangeError, "Size of the array is not equal to m * n");
-		return;
+		return output;
 	}
 	
 	/* convert to u matrix */
