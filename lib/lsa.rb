@@ -4,9 +4,12 @@ class LSA
   attr_accessor :u, :s, :v
 
   def initialize(matrix)
+    if matrix.send(:rows).count < matrix.send(:column_size)
+      raise "Matrix dimension 1 must be greater than or equal to dimension 2"
+    end
     @u, @s, @v = matrix.decompose(2)
   end
-  
+
   def inspect
     "U:\n#{@u.inspect}\n\nS:\n#{@s.inspect}\n\nV:\n#{@v.inspect}"
   end
