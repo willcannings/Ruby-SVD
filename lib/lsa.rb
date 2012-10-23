@@ -4,9 +4,12 @@ class LSA
   attr_accessor :u, :s, :v
 
   def initialize(matrix)
+    if matrix.send(:rows).count < matrix.send(:column_size)
+      raise "Matrix dimension 1 must be greater than or equal to dimension 2"
+    end
     @u, @s, @v = matrix.decompose(2)
   end
-  
+
   def inspect
     "U:\n#{@u.inspect}\n\nS:\n#{@s.inspect}\n\nV:\n#{@v.inspect}"
   end
@@ -15,7 +18,7 @@ class LSA
   # and all the clusters (columns) used in the original matrix.
   # Returns a sorted list of indexes and distances,
   def classify_vector(values)
-    raise "Unsupported vector length" unless values.size == @u.row_size || values.size == @v.row_size
+    raise "Unsupported vector length: #{values.size} != #{@u.row_size} or #{@v.row_size}" unless values.size == @u.row_size || values.size == @v.row_size
     vector = Matrix.row_vector(values)
     mult_matrix = (values.size == @u.row_size ? @u : @v)
     comp_matrix = (values.size == @u.row_size ? @v : @u)
