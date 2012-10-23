@@ -100,7 +100,7 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
 		++a[i][i];
 	}
 	for (k=n;k>=1;k--) {
-		for (its=1;its<=30;its++) {
+		for (its=1;its<=90;its++) {
 			flag=1;
 			for (l=k;l>=1;l--) {
 				nm=l-1;
@@ -139,7 +139,7 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
 				}
 				break;
 			}
-			if (its == 30) nrerror("no convergence in 30 svdcmp iterations");
+			if (its == 90) nrerror("no convergence in 90 svdcmp iterations");
 			x=w[l];
 			nm=k-1;
 			y=w[nm];
