@@ -41,8 +41,8 @@ class SVDMatrix < Matrix
     c_count = 0
     @rows.each do |row| 
       input_array += row
-      c_count += 1
     end
+    c_count = input_array.length / row_size
     puts "input array"
     puts input_array.length
     puts "row size"
