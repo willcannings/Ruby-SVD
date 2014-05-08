@@ -37,16 +37,21 @@ class SVDMatrix < Matrix
   # [ 0, 0, 0, 0 ]
   def decompose(reduce_dimensions_to = nil)
     input_array = []
-    @rows.each {|row| input_array += row}
-    u_array, w_array, v_array = SVD.decompose(input_array, row_size, column_size)
+    # @rows.each {|row| input_array += row}
+    c_count = 0
+    @rows.each do |row| 
+      input_array += row
+      c_count += 1
+    end
+    u_array, w_array, v_array = SVD.decompose(input_array, row_size, c_count)
     
     # recompose U matrix
-    u = SVDMatrix.new(row_size, reduce_dimensions_to || column_size)
-    row_size.times {|i| u.set_row(i, u_array.slice!(0, column_size)[0...(reduce_dimensions_to || column_size)])}
+    u = SVDMatrix.new(row_size, reduce_dimensions_to || c_count)
+    row_size.times {|i| u.set_row(i, u_array.slice!(0, c_count)[0...(reduce_dimensions_to || c_count)])}
     
     # recompose V matrix
-    v = SVDMatrix.new(column_size, reduce_dimensions_to || column_size)
-    column_size.times {|i| v.set_row(i, v_array.slice!(0, column_size)[0...(reduce_dimensions_to || column_size)])}
+    v = SVDMatrix.new(c_count, reduce_dimensions_to || c_count)
+    c_count.times {|i| v.set_row(i, v_array.slice!(0, c_count)[0...(reduce_dimensions_to || c_count)])}
     
     # diagonalise W array as a matrix
     if reduce_dimensions_to
@@ -56,7 +61,7 @@ class SVDMatrix < Matrix
     
     [u, w, v]
   end
-  
+
   # Reduce the number of dimensions of the data to dimensions.
   # Returns a back a recombined matrix (conceptually the original
   # matrix dimensionally reduced). For example Latent Semantic
