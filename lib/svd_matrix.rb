@@ -43,6 +43,12 @@ class SVDMatrix < Matrix
       input_array += row
       c_count += 1
     end
+    puts "input array"
+    puts input_array.length
+    puts "row size"
+    puts row_size
+    puts "column size"
+    puts c_count
     u_array, w_array, v_array = SVD.decompose(input_array, row_size, c_count)
     
     # recompose U matrix
