@@ -21,7 +21,8 @@ VALUE decompose(VALUE module, VALUE matrix_ruby, VALUE m_ruby, VALUE n_ruby) {
 	/* precondition */
 	if((m*n) != RARRAY_LEN(matrix_ruby)) {
 		rb_raise(rb_eRangeError, "Size of the array is not equal to m * n");
-		return;
+	}else if(m<n){
+	  rb_raise(rb_eRangeError, "m(%d) must be greater than or equal to n(%d)", m, n);
 	}
 	
 	/* convert to u matrix */
@@ -64,3 +65,9 @@ void Init_svd()
 	VALUE module = rb_define_module("SVD");
 	rb_define_module_function(module, "decompose", decompose, 3);
 }		
+
+void nrerror(char error_text[])
+     /* Numerical Recipes standard error handler */
+{
+  rb_raise(rb_eRuntimeError, "Numerical Recipes run-time error...\n%s\n", error_text);
+}
