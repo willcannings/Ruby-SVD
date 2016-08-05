@@ -88,6 +88,7 @@ float *vector();
 /* function definition */
 
 
+#if 0
 void nrerror(char error_text[])
      /* Numerical Recipes standard error handler */
 {
@@ -96,6 +97,7 @@ void nrerror(char error_text[])
   fprintf(stderr, "...now exiting to system...\n");
   exit(1);
 }
+#endif
 
 float *vector(long nl, long nh)
      /* allocate a float vector with subscript range v[nl..nr] */
